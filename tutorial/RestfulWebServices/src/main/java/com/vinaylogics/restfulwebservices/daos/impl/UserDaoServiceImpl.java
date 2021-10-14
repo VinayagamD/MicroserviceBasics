@@ -1,6 +1,7 @@
 package com.vinaylogics.restfulwebservices.daos.impl;
 
 import com.vinaylogics.restfulwebservices.daos.UserDaoService;
+import com.vinaylogics.restfulwebservices.exceptions.UserNotFoundException;
 import com.vinaylogics.restfulwebservices.models.User;
 import org.springframework.stereotype.Component;
 
@@ -36,6 +37,6 @@ public class UserDaoServiceImpl implements UserDaoService {
 
     @Override
     public User findOne(int id) {
-        return users.stream().filter(user  -> user.getId().equals(id)).findFirst().orElse(null);
+        return users.stream().filter(user  -> user.getId().equals(id)).findFirst().orElseThrow(()-> new UserNotFoundException("id-"+id));
     }
 }

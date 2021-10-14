@@ -1,10 +1,14 @@
 package com.vinaylogics.restfulwebservices.controllers;
 
 import com.vinaylogics.restfulwebservices.daos.UserDaoService;
+import com.vinaylogics.restfulwebservices.exceptions.UserNotFoundException;
 import com.vinaylogics.restfulwebservices.models.User;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -32,9 +36,19 @@ public class UserController {
         return daoService.findOne(id);
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
+    //
+    // input - details of user
+    // output - CREATED & Return the URI
     @PostMapping("/")
-    public void createUser(@RequestBody User user){
-        daoService.save(user);
+    public ResponseEntity<Object> createUser(@RequestBody User user){
+        User savedUser = daoService.save(user);
+        // CREATED
+        // /user/{id} savedUser.getId()
+       URI location = ServletUriComponentsBuilder
+               .fromCurrentRequest()
+               .path("/{id}")
+               .buildAndExpand(savedUser.getId())
+               .toUri();
+       return ResponseEntity.created(location).build();
     }
 }

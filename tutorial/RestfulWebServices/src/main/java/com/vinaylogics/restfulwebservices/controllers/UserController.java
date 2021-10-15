@@ -51,4 +51,10 @@ public class UserController {
                .toUri();
        return ResponseEntity.created(location).build();
     }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable("id") int userId){
+        daoService.deleteById(userId);
+    }
 }

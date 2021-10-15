@@ -4,6 +4,7 @@ import com.vinaylogics.restfulwebservices.exceptions.ExceptionResponse;
 import com.vinaylogics.restfulwebservices.exceptions.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -12,7 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.time.LocalDateTime;
 
-@RestController
+@Controller
 @RestControllerAdvice
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 

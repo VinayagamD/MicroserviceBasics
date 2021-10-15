@@ -39,4 +39,12 @@ public class UserDaoServiceImpl implements UserDaoService {
     public User findOne(int id) {
         return users.stream().filter(user  -> user.getId().equals(id)).findFirst().orElseThrow(()-> new UserNotFoundException("id-"+id));
     }
+
+    @Override
+    public User deleteById(int id) {
+        return users.stream().filter(user  -> user.getId().equals(id)).findFirst().map(user -> {
+            users.remove(user);
+            return user;
+        }).orElseThrow(()-> new UserNotFoundException("id-"+id));
+    }
 }

@@ -9,4 +9,5 @@ public interface UserDaoService {
     List<User> findAll();
     User save(User user);
     User findOne(int id);
+    User deleteById(int id);
 }

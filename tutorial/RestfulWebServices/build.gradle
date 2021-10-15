@@ -27,6 +27,7 @@ dependencies {
      * Internalization - i18n
      */
     implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

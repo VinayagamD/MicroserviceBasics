@@ -1,8 +1,10 @@
 package com.vinaylogics.restfulwebservices.controllers;
 
 import com.vinaylogics.restfulwebservices.daos.UserDaoService;
-import com.vinaylogics.restfulwebservices.exceptions.UserNotFoundException;
 import com.vinaylogics.restfulwebservices.models.User;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +35,12 @@ public class UserController {
     // GET /users/{id}
     //retrieveUser(int id)
     @GetMapping("/{id}")
-    public User retrieveUser(@PathVariable int id){
-        return daoService.findOne(id);
+    public EntityModel<User> retrieveUser(@PathVariable int id){
+        EntityModel<User> model = EntityModel.of(daoService.findOne(id));
+        WebMvcLinkBuilder linkToUsers =
+                linkTo(methodOn(this.getClass()).retrieveAllUsers());
+        model.add(linkToUsers.withRel("all-users"));
+        return model;
     }
 
     //

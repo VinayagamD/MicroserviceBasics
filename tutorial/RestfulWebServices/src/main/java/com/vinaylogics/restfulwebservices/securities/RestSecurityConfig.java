@@ -1,6 +1,7 @@
 package com.vinaylogics.restfulwebservices.securities;
 
 import org.springframework.context.annotation.Configuration;
+/*
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -12,3 +13,4 @@ public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
     }
 }
+*/

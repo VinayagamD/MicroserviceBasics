@@ -1,4 +1,4 @@
 INSERT INTO user VALUES
-(1, sysdate(), 'AB'),
-(2, sysdate(), 'Jack'),
-(3, sysdate(), 'Jill');
+(10001, sysdate(), 'AB'),
+(10002, sysdate(), 'Jack'),
+(10003, sysdate(), 'Jill');

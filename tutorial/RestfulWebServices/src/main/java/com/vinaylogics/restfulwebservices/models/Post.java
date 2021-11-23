@@ -1,5 +1,7 @@
 package com.vinaylogics.restfulwebservices.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -11,7 +13,8 @@ public class Post {
 
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private User user;
 
     public User getUser() {

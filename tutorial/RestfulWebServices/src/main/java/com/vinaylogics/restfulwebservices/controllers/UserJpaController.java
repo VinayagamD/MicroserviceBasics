@@ -2,6 +2,7 @@ package com.vinaylogics.restfulwebservices.controllers;
 
 import com.vinaylogics.restfulwebservices.daos.UserDaoService;
 import com.vinaylogics.restfulwebservices.daos.UserService;
+import com.vinaylogics.restfulwebservices.models.Post;
 import com.vinaylogics.restfulwebservices.models.User;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -69,5 +70,12 @@ public class UserJpaController {
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable("id") int userId){
         service.deleteById(userId);
+    }
+
+    // POST for Users
+    @GetMapping("/{id}/posts")
+    public List<Post> retrieveUserAllPost(@PathVariable int id){
+        User user = service.findById(id);
+        return user.getPosts();
     }
 }

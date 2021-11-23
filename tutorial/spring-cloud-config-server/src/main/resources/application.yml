@@ -5,3 +5,8 @@ server:
 spring:
   application:
     name: spring-cloud-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: file:///H:/workspace/springboot/git-localconfig-repo/

@@ -1,5 +1,6 @@
 package com.vinaylogics.restfulwebservices.controllers;
 
+import com.vinaylogics.restfulwebservices.daos.PostService;
 import com.vinaylogics.restfulwebservices.daos.UserDaoService;
 import com.vinaylogics.restfulwebservices.daos.UserService;
 import com.vinaylogics.restfulwebservices.models.Post;
@@ -24,11 +25,13 @@ public class UserJpaController {
 
     private final UserDaoService daoService;
     private final UserService service;
+    private final PostService postService;
 
 
-    public UserJpaController(UserDaoService daoService, UserService service) {
+    public UserJpaController(UserDaoService daoService, UserService service, PostService postService) {
         this.daoService = daoService;
         this.service = service;
+        this.postService = postService;
     }
 
     // GET /users
@@ -77,5 +80,21 @@ public class UserJpaController {
     public List<Post> retrieveUserAllPost(@PathVariable int id){
         User user = service.findById(id);
         return user.getPosts();
+    }
+
+    // POST for Users
+    @PostMapping("/{id}/posts")
+    public ResponseEntity<Object> createPost(@PathVariable int id,@Valid @RequestBody Post post){
+        User user = service.findById(id);
+        post.setUser(user);
+        post = postService.save(post);
+        // CREATED
+        // /user/{id} savedUser.getId()
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{postId}")
+                .buildAndExpand(post.getId())
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 }

@@ -1,10 +1,18 @@
-package com.vinaylogics.microservices.currencyexchangeservice.models;
+package com.vinaylogics.microservices.currencyexchangeservice.entities;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Entity
 public class CurrencyExchange {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "currency_from")
     private String from;
+    @Column(name = "currency_to")
     private String to;
     private BigDecimal conversionMultiple;
     private String environment;

@@ -21,6 +21,6 @@ public class CurrencyConversionController {
 
     @GetMapping("/from/{from}/to/{to}/quantity/{quantity}")
     public CurrencyConversion calculateCurrencyConversion(@PathVariable String from, @PathVariable String to, @PathVariable BigDecimal quantity){
-      return service.getCalculatedCurrentConversion(from, to, quantity);
+      return service.getCalculatedFeignCurrencyConversion(from, to, quantity);
     }
 }

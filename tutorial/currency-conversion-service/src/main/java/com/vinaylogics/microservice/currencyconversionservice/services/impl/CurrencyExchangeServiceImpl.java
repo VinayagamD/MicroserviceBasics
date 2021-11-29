@@ -1,5 +1,6 @@
 package com.vinaylogics.microservice.currencyconversionservice.services.impl;
 
+import com.vinaylogics.microservice.currencyconversionservice.configs.CurrencyExchangeProxy;
 import com.vinaylogics.microservice.currencyconversionservice.models.CurrencyConversion;
 import com.vinaylogics.microservice.currencyconversionservice.services.CurrencyExchangeService;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +14,15 @@ import java.util.Map;
 @Service
 public class CurrencyExchangeServiceImpl implements CurrencyExchangeService {
 
+    private final CurrencyExchangeProxy proxy;
+
+    public CurrencyExchangeServiceImpl(CurrencyExchangeProxy proxy) {
+        this.proxy = proxy;
+    }
+
+
     @Override
-    public CurrencyConversion getCalculatedCurrentConversion(String from, String to, BigDecimal quantity) {
+    public CurrencyConversion getCalculatedCurrencyConversion(String from, String to, BigDecimal quantity) {
         Map<String,String> uriVariables = new HashMap<>();
         uriVariables.put("from",from);
         uriVariables.put("to", to);
@@ -23,5 +31,13 @@ public class CurrencyExchangeServiceImpl implements CurrencyExchangeService {
         return new CurrencyConversion(currencyConversion.getId(),from,to,quantity,
                 currencyConversion.getConversionMultiple(), quantity.multiply(currencyConversion.getConversionMultiple()),
                 currencyConversion.getEnvironment());
+    }
+
+    @Override
+    public CurrencyConversion getCalculatedFeignCurrencyConversion(String from, String to, BigDecimal quantity) {
+        CurrencyConversion currencyConversion  = proxy.retrieveExchangeValue(from,to);
+        return new CurrencyConversion(currencyConversion.getId(),from,to,quantity,
+                currencyConversion.getConversionMultiple(), quantity.multiply(currencyConversion.getConversionMultiple()),
+                currencyConversion.getEnvironment()+" feign");
     }
 }

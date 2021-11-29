@@ -5,6 +5,7 @@ import com.vinaylogics.microservice.currencyconversionservice.models.CurrencyCon
 import java.math.BigDecimal;
 
 public interface CurrencyExchangeService {
-    CurrencyConversion getCalculatedCurrentConversion(String from, String to, BigDecimal quantity);
+    CurrencyConversion getCalculatedCurrencyConversion(String from, String to, BigDecimal quantity);
+    CurrencyConversion getCalculatedFeignCurrencyConversion(String from, String to, BigDecimal quantity);
 
 }

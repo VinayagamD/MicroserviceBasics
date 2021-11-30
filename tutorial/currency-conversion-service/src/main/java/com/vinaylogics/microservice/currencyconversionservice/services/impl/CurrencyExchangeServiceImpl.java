@@ -30,7 +30,7 @@ public class CurrencyExchangeServiceImpl implements CurrencyExchangeService {
         CurrencyConversion currencyConversion  = responseEntity.getBody();
         return new CurrencyConversion(currencyConversion.getId(),from,to,quantity,
                 currencyConversion.getConversionMultiple(), quantity.multiply(currencyConversion.getConversionMultiple()),
-                currencyConversion.getEnvironment());
+                currencyConversion.getEnvironment()+" rest template");
     }
 
     @Override

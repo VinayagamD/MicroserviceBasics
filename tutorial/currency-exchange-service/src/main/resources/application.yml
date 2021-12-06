@@ -11,6 +11,9 @@ spring:
   jpa:
     show-sql: true
     defer-datasource-initialization: true
+  sleuth:
+    sampler:
+      probability: 1.0
 server:
   port: 8000
 eureka:
